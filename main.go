@@ -16,7 +16,11 @@ type Truck struct {
 }
 
 func (t *Truck) LoadCargo() error {
-	return ErrTruckNotFound
+	return nil
+}
+
+func (t *Truck) UnloadCargo() error {
+	return nil
 }
 
 // processTruck handles the loading and unloading of a truck
@@ -27,7 +31,11 @@ func processTruck(truck Truck) error {
 		return fmt.Errorf("Error Loading Cargo : %w", err)
 	}
 
-	return ErrNotImplemented
+	if err := truck.UnloadCargo(); err != nil {
+		return fmt.Errorf("Error Unloading Cargo : %w", err)
+	}
+
+	return nil
 }
 
 func main() {
