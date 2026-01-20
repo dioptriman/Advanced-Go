@@ -25,8 +25,8 @@ func main() {
 
 	for _, truck := range trucks {
 		fmt.Printf("Truck %s arrived \n", truck.id)
-		err := processTruck(truck)
-		if err != nil {
+
+		if err := processTruck(truck); err != nil {
 			log.Fatalf("Error processing truck: %s", err)
 		}
 	}
