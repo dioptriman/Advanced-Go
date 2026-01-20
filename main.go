@@ -41,6 +41,10 @@ func main() {
 		fmt.Printf("Truck %s arrived \n", truck.id)
 
 		if err := processTruck(truck); err != nil {
+			if errors.Is(err, ErrTruckNotFound) {
+				log.Fatal("TRUE")
+			}
+
 			log.Fatalf("Error processing truck: %s", err)
 		}
 	}
