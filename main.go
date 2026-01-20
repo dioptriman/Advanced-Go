@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 )
 
 type Truck struct {
@@ -24,6 +25,9 @@ func main() {
 
 	for _, truck := range trucks {
 		fmt.Printf("Truck %s arrived \n", truck.id)
-		processTruck(truck)
+		err := processTruck(truck)
+		if err != nil {
+			log.Fatalf("Error processing truck: %s", err)
+		}
 	}
 }
