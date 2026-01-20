@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"log"
 )
@@ -13,7 +14,7 @@ type Truck struct {
 func processTruck(truck Truck) error {
 	fmt.Printf("Processing truck: %s\n", truck.id)
 
-	return nil
+	return errors.New("Not Implemented")
 }
 
 func main() {
