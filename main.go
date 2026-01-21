@@ -45,7 +45,7 @@ type ElectricTruck struct {
 
 // processTruck handles the loading and unloading of a truck
 func processTruck(truck Truck) error {
-	fmt.Printf("Processing truck : %v", truck)
+	fmt.Printf("Processing truck : %+v \n", truck)
 
 	if err := truck.LoadCargo(); err != nil {
 		return fmt.Errorf("Error Loading Cargo : %w", err)
