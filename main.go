@@ -11,21 +11,41 @@ var (
 	ErrTruckNotFound  = errors.New("Truck Not Found")
 )
 
-type Truck struct {
-	id string
+type Truck interface {
+	LoadCargo() error
+	UnloadCargo() error
 }
 
-func (t *Truck) LoadCargo() error {
+type NormalTruck struct {
+	id    string
+	cargo int
+}
+
+func (t NormalTruck) LoadCargo() error {
 	return nil
 }
 
-func (t *Truck) UnloadCargo() error {
+func (t NormalTruck) UnloadCargo() error {
 	return nil
+}
+
+func (e ElectricTruck) LoadCargo() error {
+	return nil
+}
+
+func (e ElectricTruck) UnloadCargo() error {
+	return nil
+}
+
+type ElectricTruck struct {
+	id      string
+	cargo   int
+	battery float64
 }
 
 // processTruck handles the loading and unloading of a truck
 func processTruck(truck Truck) error {
-	fmt.Printf("Processing truck: %s\n", truck.id)
+	fmt.Printf("Processing truck : %v", truck)
 
 	if err := truck.LoadCargo(); err != nil {
 		return fmt.Errorf("Error Loading Cargo : %w", err)
@@ -39,17 +59,13 @@ func processTruck(truck Truck) error {
 }
 
 func main() {
-	trucks := []Truck{
-		{id: "Truck-1"},
-		{id: "Truck-2"},
-		{id: "Truck-3"},
+	err := processTruck(NormalTruck{id: "1"})
+	if err != nil {
+		log.Fatalf("Error processing truck: %s", err)
 	}
 
-	for _, truck := range trucks {
-		fmt.Printf("Truck %s arrived \n", truck.id)
-
-		if err := processTruck(truck); err != nil {
-			log.Fatalf("Error processing truck: %s", err)
-		}
+	err = processTruck(ElectricTruck{id: "2"})
+	if err != nil {
+		log.Fatalf("Error processing truck: %s", err)
 	}
 }
