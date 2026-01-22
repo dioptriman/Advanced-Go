@@ -3,7 +3,6 @@ package main
 import (
 	"errors"
 	"fmt"
-	"log"
 )
 
 var (
@@ -65,19 +64,4 @@ func processTruck(truck Truck) error {
 	}
 
 	return nil
-}
-
-func main() {
-	nt := &NormalTruck{id: "1"}
-	et := &ElectricTruck{id: "2"}
-
-	err := processTruck(nt)
-	if err != nil {
-		log.Fatalf("Error processing truck: %s", err)
-	}
-
-	err = processTruck(et)
-	if err != nil {
-		log.Fatalf("Error processing truck: %s", err)
-	}
 }
