@@ -3,6 +3,8 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
+	"sync"
 	"time"
 )
 
@@ -70,9 +72,19 @@ func processTruck(truck Truck) error {
 }
 
 func processFleet(trucks []Truck) error {
+	var wg sync.WaitGroup
 	for _, t := range trucks {
-		go processTruck(t)
+		wg.Add(1)
+
+		go func(t Truck) {
+			if err := processTruck(t); err != nil {
+				log.Println(err)
+			}
+			wg.Done()
+		}(t)
 	}
+
+	wg.Wait()
 
 	return nil
 }
