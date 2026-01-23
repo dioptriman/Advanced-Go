@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	"log"
+	"time"
 )
 
 var (
@@ -56,6 +56,8 @@ type ElectricTruck struct {
 func processTruck(truck Truck) error {
 	fmt.Printf("Processing truck : %+v \n", truck)
 
+	time.Sleep(time.Second)
+
 	if err := truck.LoadCargo(); err != nil {
 		return fmt.Errorf("Error Loading Cargo : %w", err)
 	}
@@ -67,14 +69,27 @@ func processTruck(truck Truck) error {
 	return nil
 }
 
-func main() {
-	t := NormalTruck{cargo: 0, Diesel: 100}
+func processFleet(trucks []Truck) error {
+	for _, t := range trucks {
+		go processTruck(t)
+	}
 
-	fillTruckCargo(&t)
-
-	log.Println(t)
+	return nil
 }
 
-func fillTruckCargo(t *NormalTruck) {
-	t.cargo = 100
+func main() {
+	fleet := []Truck{
+		&ElectricTruck{id: "ET-1", cargo: 10, battery: 100},
+		&NormalTruck{id: "NT-1", cargo: 0, Diesel: 50},
+		&ElectricTruck{id: "ET-2", cargo: 30, battery: 30},
+		&NormalTruck{id: "NT-3", cargo: 40, Diesel: 20},
+	}
+
+	if err := processFleet(fleet); err != nil {
+		fmt.Printf("Error Processing fleet : %v \n", err)
+
+		return
+	}
+
+	fmt.Println("All trucks processed successfully")
 }
