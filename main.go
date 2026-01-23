@@ -74,4 +74,8 @@ func main() {
 	log.Println(truckID)
 	log.Printf("The value of the truckID : %v \n", *anotherTruckID)
 	log.Printf("The address of the truckID : %v \n", &anotherTruckID)
+
+	truckID = 100
+
+	log.Printf("The value of the truckID : %v \n", *anotherTruckID)
 }
