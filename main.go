@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 )
 
 var (
@@ -64,4 +65,13 @@ func processTruck(truck Truck) error {
 	}
 
 	return nil
+}
+
+func main() {
+	truckID := 42
+	anotherTruckID := &truckID
+
+	log.Println(truckID)
+	log.Printf("The value of the truckID : %v \n", *anotherTruckID)
+	log.Printf("The address of the truckID : %v \n", &anotherTruckID)
 }
