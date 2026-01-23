@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 )
 
 var (
@@ -64,4 +65,16 @@ func processTruck(truck Truck) error {
 	}
 
 	return nil
+}
+
+func main() {
+	t := NormalTruck{cargo: 0, Diesel: 100}
+
+	fillTruckCargo(&t)
+
+	log.Println(t)
+}
+
+func fillTruckCargo(t *NormalTruck) {
+	t.cargo = 100
 }
