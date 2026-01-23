@@ -68,14 +68,13 @@ func processTruck(truck Truck) error {
 }
 
 func main() {
-	truckID := 42
-	anotherTruckID := &truckID
+	t := NormalTruck{cargo: 0, Diesel: 100}
 
-	log.Println(truckID)
-	log.Printf("The value of the truckID : %v \n", *anotherTruckID)
-	log.Printf("The address of the truckID : %v \n", &anotherTruckID)
+	fillTruckCargo(&t)
 
-	truckID = 100
+	log.Println(t)
+}
 
-	log.Printf("The value of the truckID : %v \n", *anotherTruckID)
+func fillTruckCargo(t *NormalTruck) {
+	t.cargo = 100
 }
